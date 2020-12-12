@@ -10,13 +10,13 @@ DISTRIBUTED_ARGS="--nproc_per_node $WORLD_SIZE \
 
 TASK="LAMBADA"
 
-VALID_DATA=<lambada path>
+VALID_DATA=lambada_small.jsonl
 VOCAB_FILE=gpt2-vocab.json
 MERGE_FILE=gpt2-merges.txt
 CHECKPOINT=checkpoints/gpt2_345m
 
 
-python -m torch.distributed.launch $DISTRIBUTED_ARGS ./tasks/main.py \
+python -m torch.distributed.launch $DISTRIBUTED_ARGS ../tasks/main.py \
                --task $TASK \
                --valid-data $VALID_DATA \
                --tokenizer-type GPT2BPETokenizer \

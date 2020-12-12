@@ -13,17 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from mpu import layers
-from commons import set_random_seed
-from commons import print_separator
-from commons import initialize_distributed
-import mpu
-from torch.nn.parameter import Parameter
-import torch.nn.init as init
 import torch
 import random
 import sys
 sys.path.append("../..")
+
+from megatron import mpu
+from mpu import layers
+from commons import set_random_seed
+from commons import print_separator
+from commons import initialize_distributed
+from torch.nn.parameter import Parameter
+import torch.nn.init as init
 
 
 def test_parallel_embedding(model_parallel_size):
@@ -123,8 +124,7 @@ def test_initialize_affine_weight(model_parallel_size):
     # ---------------
     weight = torch.empty(output_size_coeff, input_size)
     set_random_seed(seed)
-    layers._initialize_affine_weight(weight, output_size, input_size,
-
+    layers._initialize_affine_weight_cpu(weight, output_size, input_size,
                                      output_size_coeff, 0,
                                      torch.nn.init.normal_)
     # Target.
